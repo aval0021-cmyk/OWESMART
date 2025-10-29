@@ -2,27 +2,18 @@ import axios from 'axios';
 
 // Determine API base URL dynamically
 const getApiBaseUrl = () => {
-  // Allow explicit override via env var
-  if (process.env.REACT_APP_API_BASE) {
-    return process.env.REACT_APP_API_BASE;
+  // Allow explicit override via env var (for production deployment)
+  if (process.env.REACT_APP_API_URL) {
+    return process.env.REACT_APP_API_URL;
   }
 
-  // In development, use relative URL to leverage Create React App's proxy
+  // In development, use localhost backend
   if (process.env.NODE_ENV === 'development') {
-    return '/api';
+    return 'http://localhost:5000/api';
   }
 
-  // In production, use current host
-  const host = typeof window !== 'undefined' && window.location?.hostname
-    ? window.location.hostname
-    : 'localhost';
-
-  const protocol = typeof window !== 'undefined' && window.location?.protocol === 'https:'
-    ? 'https'
-    : 'http';
-
-  const port = 5000; // backend port
-  return `${protocol}://${host}:${port}/api`;
+  // Fallback to localhost
+  return 'http://localhost:5000/api';
 };
 
 const api = axios.create({
