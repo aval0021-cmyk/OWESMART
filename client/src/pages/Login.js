@@ -82,10 +82,10 @@ const Login = () => {
   };
 
   return (
-    <div className="min-h-screen flex flex-col lg:flex-row overflow-hidden">
+    <div className="min-h-screen flex flex-col lg:flex-row overflow-hidden bg-gray-50">
       
       {/* Left Column - Login Form (40% width on desktop) */}
-      <div className="w-full lg:w-2/5 bg-white flex items-center justify-center p-8 lg:p-12 overflow-y-auto">
+      <div className="w-full lg:w-2/5 bg-white flex items-center justify-center p-8 lg:p-12 overflow-y-auto shadow-lg">
         <div className="w-full max-w-md space-y-6">
           
           {/* Logo and Brand */}
@@ -98,14 +98,14 @@ const Login = () => {
                 e.currentTarget.style.display = 'none';
               }}
             />
-            <span className="text-2xl font-bold bg-gradient-to-r from-emerald-600 to-teal-600 bg-clip-text text-transparent">
+            <span className="text-2xl font-bold text-blue-900">
               OweSmart
             </span>
           </div>
 
           {/* Title */}
           <div>
-            <h1 className="text-3xl font-bold text-gray-900">Log in to your account.</h1>
+            <h1 className="text-3xl font-bold text-blue-900">Log in to your account.</h1>
             <p className="mt-2 text-sm text-gray-600">Welcome back! Please enter your details.</p>
           </div>
 
@@ -176,11 +176,11 @@ const Login = () => {
                 id="terms"
                 checked={agreeTerms}
                 onChange={(e) => setAgreeTerms(e.target.checked)}
-                className="w-4 h-4 rounded border-gray-300 cursor-pointer accent-emerald-600"
+                className="w-4 h-4 rounded border-gray-300 cursor-pointer accent-blue-600"
               />
               <label htmlFor="terms" className="text-sm text-gray-700 cursor-pointer">
                 I agree to OweSmart's{' '}
-                <Link to="/terms" className="font-medium text-emerald-600 hover:text-emerald-700">
+                <Link to="/terms" className="font-medium text-blue-600 hover:text-blue-700">
                   Terms & Conditions
                 </Link>
               </label>
@@ -188,7 +188,7 @@ const Login = () => {
 
             {/* Forgot Password Link */}
             <div className="flex justify-end">
-              <Link to="/forgot-password" className="text-sm font-medium text-emerald-600 hover:text-emerald-700">
+              <Link to="/forgot-password" className="text-sm font-medium text-blue-600 hover:text-blue-700">
                 Forgot password?
               </Link>
             </div>
@@ -197,7 +197,7 @@ const Login = () => {
             <button 
               type="submit" 
               disabled={loading}
-              className="w-full bg-gradient-to-r from-emerald-600 to-teal-600 text-white py-3 rounded-lg font-medium hover:from-emerald-700 hover:to-teal-700 transition duration-200 shadow-lg shadow-emerald-500/30 disabled:opacity-50 disabled:cursor-not-allowed"
+              className="w-full bg-blue-600 text-white py-3 rounded-lg font-medium hover:bg-blue-700 transition duration-200 shadow-md hover:shadow-lg disabled:opacity-50 disabled:cursor-not-allowed"
             >
               {loading ? (
                 <span className="flex items-center justify-center gap-2">
@@ -243,7 +243,7 @@ const Login = () => {
             {/* Sign Up Link */}
             <div className="text-center text-sm text-gray-600">
               Don't you have an account?{' '}
-              <Link to="/register" className="font-medium text-emerald-600 hover:text-emerald-700">
+              <Link to="/register" className="font-medium text-blue-600 hover:text-blue-700">
                 Sign Up
               </Link>
             </div>
@@ -253,10 +253,10 @@ const Login = () => {
       </div>
 
       {/* Right Column - Marketing Panel (60% width on desktop) */}
-      <div className="hidden lg:flex w-full lg:w-3/5 bg-gradient-to-br from-emerald-600 via-teal-600 to-cyan-600 relative overflow-hidden items-center justify-center p-16">
+      <div className="hidden lg:flex w-full lg:w-3/5 bg-gradient-to-br from-blue-700 via-blue-600 to-blue-800 relative overflow-hidden items-center justify-center p-16">
         
         {/* Hexagon Pattern Overlay */}
-        <div className="absolute inset-0 opacity-20" style={{
+        <div className="absolute inset-0 opacity-10" style={{
           backgroundImage: `linear-gradient(30deg, rgba(255,255,255,0.1) 12%, transparent 12.5%, transparent 87%, rgba(255,255,255,0.1) 87.5%, rgba(255,255,255,0.1)),
                            linear-gradient(150deg, rgba(255,255,255,0.1) 12%, transparent 12.5%, transparent 87%, rgba(255,255,255,0.1) 87.5%, rgba(255,255,255,0.1)),
                            linear-gradient(30deg, rgba(255,255,255,0.1) 12%, transparent 12.5%, transparent 87%, rgba(255,255,255,0.1) 87.5%, rgba(255,255,255,0.1)),
@@ -270,7 +270,7 @@ const Login = () => {
           <h2 className="text-5xl font-bold text-white leading-tight drop-shadow-2xl">
             The easiest way to manage your debts.
           </h2>
-          <p className="text-xl text-white/90 drop-shadow-lg">
+          <p className="text-xl text-white/95 drop-shadow-lg">
             Join the OweSmart community and take control of your financial future!
           </p>
         </div>
@@ -280,27 +280,27 @@ const Login = () => {
           
           {/* Dashboard Card 1 - Total Debt */}
           <div className="absolute top-20 left-16 animate-float" style={{animation: 'float 6s ease-in-out infinite'}}>
-            <div className="bg-white/10 backdrop-blur-md rounded-xl p-5 shadow-2xl border border-white/20 w-72">
+            <div className="bg-white/15 backdrop-blur-md rounded-xl p-5 shadow-2xl border border-white/30 w-72">
               <div className="flex items-center justify-between mb-3">
-                <span className="text-white/90 text-sm font-medium">Total Debt</span>
-                <svg className="w-5 h-5 text-red-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <span className="text-white font-medium text-sm">Total Debt</span>
+                <svg className="w-5 h-5 text-red-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13 17h8m0 0V9m0 8l-8-8-4 4-6-6"/>
                 </svg>
               </div>
               <div className="text-3xl font-bold text-white mb-1">$45,230</div>
-              <div className="text-emerald-300 text-sm">-8.2% from last month</div>
+              <div className="text-green-200 text-sm font-medium">-8.2% from last month</div>
               {/* Mini debt categories */}
               <div className="mt-4 space-y-2">
                 <div className="flex justify-between items-center text-sm">
-                  <span className="text-white/80">Credit Cards</span>
+                  <span className="text-white/90">Credit Cards</span>
                   <span className="text-white font-semibold">$12,500</span>
                 </div>
                 <div className="flex justify-between items-center text-sm">
-                  <span className="text-white/80">Student Loans</span>
+                  <span className="text-white/90">Student Loans</span>
                   <span className="text-white font-semibold">$28,000</span>
                 </div>
                 <div className="flex justify-between items-center text-sm">
-                  <span className="text-white/80">Personal Loan</span>
+                  <span className="text-white/90">Personal Loan</span>
                   <span className="text-white font-semibold">$4,730</span>
                 </div>
               </div>
@@ -309,30 +309,30 @@ const Login = () => {
 
           {/* Dashboard Card 2 - Payment Progress */}
           <div className="absolute bottom-20 right-16 animate-float" style={{animation: 'float 8s ease-in-out infinite', animationDelay: '1s'}}>
-            <div className="bg-white/10 backdrop-blur-md rounded-xl p-5 shadow-2xl border border-white/20 w-80">
-              <div className="text-white/90 text-sm font-medium mb-3">Monthly Payment Progress</div>
+            <div className="bg-white/15 backdrop-blur-md rounded-xl p-5 shadow-2xl border border-white/30 w-80">
+              <div className="text-white font-medium text-sm mb-3">Monthly Payment Progress</div>
               <div className="space-y-3">
                 <div>
                   <div className="flex justify-between text-white text-sm mb-2">
                     <span>March 2025</span>
                     <span className="font-bold">$1,850 / $2,500</span>
                   </div>
-                  <div className="w-full bg-white/20 rounded-full h-3">
-                    <div className="bg-gradient-to-r from-emerald-400 to-teal-300 h-3 rounded-full" style={{width: '74%'}}></div>
+                  <div className="w-full bg-white/30 rounded-full h-3">
+                    <div className="bg-gradient-to-r from-green-300 to-emerald-200 h-3 rounded-full shadow-sm" style={{width: '74%'}}></div>
                   </div>
                 </div>
                 <div className="grid grid-cols-3 gap-3 mt-4">
-                  <div className="bg-white/5 rounded-lg p-3 text-center">
+                  <div className="bg-white/10 rounded-lg p-3 text-center">
                     <div className="text-2xl font-bold text-white">12</div>
-                    <div className="text-xs text-white/70">Payments Made</div>
+                    <div className="text-xs text-white/80">Payments Made</div>
                   </div>
-                  <div className="bg-white/5 rounded-lg p-3 text-center">
-                    <div className="text-2xl font-bold text-emerald-300">$22K</div>
-                    <div className="text-xs text-white/70">Total Paid</div>
+                  <div className="bg-white/10 rounded-lg p-3 text-center">
+                    <div className="text-2xl font-bold text-green-200">$22K</div>
+                    <div className="text-xs text-white/80">Total Paid</div>
                   </div>
-                  <div className="bg-white/5 rounded-lg p-3 text-center">
+                  <div className="bg-white/10 rounded-lg p-3 text-center">
                     <div className="text-2xl font-bold text-white">24</div>
-                    <div className="text-xs text-white/70">Months Left</div>
+                    <div className="text-xs text-white/80">Months Left</div>
                   </div>
                 </div>
               </div>
@@ -341,14 +341,14 @@ const Login = () => {
 
           {/* Dashboard Card 3 - AI Coach Tip */}
           <div className="absolute top-1/2 right-20 -translate-y-1/2 animate-float hidden xl:block" style={{animation: 'float 7s ease-in-out infinite', animationDelay: '0.5s'}}>
-            <div className="bg-white/10 backdrop-blur-md rounded-xl p-4 shadow-2xl border border-white/20 w-64">
+            <div className="bg-white/15 backdrop-blur-md rounded-xl p-4 shadow-2xl border border-white/30 w-64">
               <div className="flex items-center space-x-2 mb-3">
-                <div className="w-8 h-8 bg-gradient-to-r from-purple-400 to-pink-400 rounded-full flex items-center justify-center">
+                <div className="w-8 h-8 bg-gradient-to-r from-blue-400 to-indigo-400 rounded-full flex items-center justify-center shadow-md">
                   <span className="text-white text-lg">🤖</span>
                 </div>
-                <span className="text-white/90 text-sm font-medium">AI Coach Tip</span>
+                <span className="text-white font-medium text-sm">AI Coach Tip</span>
               </div>
-              <p className="text-white/80 text-sm leading-relaxed">
+              <p className="text-white/90 text-sm leading-relaxed">
                 "You're on track! Consider allocating your tax refund to your highest-interest debt for maximum savings."
               </p>
             </div>

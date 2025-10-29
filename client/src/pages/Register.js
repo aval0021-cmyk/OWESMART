@@ -101,7 +101,7 @@ const Register = () => {
                 e.currentTarget.style.display = 'none';
               }}
             />
-            <span className="text-2xl font-bold bg-gradient-to-r from-emerald-600 to-teal-600 bg-clip-text text-transparent">
+            <span className="text-2xl font-bold bg-gradient-to-r blue-900 bg-clip-text text-transparent">
               OweSmart
             </span>
           </div>
@@ -226,7 +226,7 @@ const Register = () => {
             <button 
               type="submit" 
               disabled={loading}
-              className="w-full bg-gradient-to-r from-emerald-600 to-teal-600 text-white py-3 rounded-lg font-medium hover:from-emerald-700 hover:to-teal-700 transition duration-200 shadow-lg shadow-emerald-500/30 disabled:opacity-50 disabled:cursor-not-allowed"
+              className="w-full bg-gradient-to-r blue-900 text-white py-3 rounded-lg font-medium hover:hover:bg-blue-700 transition duration-200 shadow-lg hover:shadow-lg disabled:opacity-50 disabled:cursor-not-allowed"
             >
               {loading ? (
                 <span className="flex items-center justify-center gap-2">
@@ -282,7 +282,7 @@ const Register = () => {
       </div>
 
       {/* Right Column - Marketing Panel (60% width on desktop) */}
-      <div className="hidden lg:flex w-full lg:w-3/5 bg-gradient-to-br from-emerald-600 via-teal-600 to-cyan-600 relative overflow-hidden items-center justify-center p-16">
+      <div className="hidden lg:flex w-full lg:w-3/5 bg-gradient-to-br bg-blue-600 via-teal-600 to-cyan-600 relative overflow-hidden items-center justify-center p-16">
         
         {/* Hexagon Pattern Overlay */}
         <div className="absolute inset-0 opacity-20" style={{

@@ -39,7 +39,7 @@ const Landing = () => {
               </svg>
             </button>
 
-            <div className="w-10 h-10 bg-gradient-to-br from-emerald-600 to-teal-600 rounded-lg flex items-center justify-center shadow-md">
+            <div className="w-10 h-10 bg-blue-600 rounded-lg flex items-center justify-center shadow-md">
               <img 
                 src="/logo.jpg" 
                 alt="OweSmart" 
@@ -47,7 +47,7 @@ const Landing = () => {
                 onError={(e)=>{e.currentTarget.style.display='none'}} 
               />
             </div>
-            <span className="text-2xl font-bold bg-gradient-to-r from-emerald-600 to-teal-600 bg-clip-text text-transparent">
+            <span className="text-2xl font-bold text-blue-900 bg-clip-text text-transparent">
               OweSmart
             </span>
           </div>
@@ -55,7 +55,7 @@ const Landing = () => {
           {/* Account Icon Button */}
           <button
             onClick={handleAccountClick}
-            className="flex items-center space-x-2 px-4 py-2 rounded-lg bg-gradient-to-r from-emerald-600 to-teal-600 text-white hover:from-emerald-700 hover:to-teal-700 transition shadow-md hover:shadow-lg"
+            className="flex items-center space-x-2 px-4 py-2 rounded-lg text-blue-900 text-white hover:hover:bg-blue-700 transition shadow-md hover:shadow-lg"
             aria-label={user ? "Go to Dashboard" : "Login"}
           >
             <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -131,7 +131,7 @@ const Landing = () => {
 
                 <button 
                   onClick={() => { setMenuOpen(false); navigate('/register'); }}
-                  className="flex items-center space-x-3 px-4 py-3 rounded-lg bg-gradient-to-r from-emerald-600 to-teal-600 text-white hover:from-emerald-700 hover:to-teal-700 transition shadow-md group"
+                  className="flex items-center space-x-3 px-4 py-3 rounded-lg text-blue-900 text-white hover:hover:bg-blue-700 transition shadow-md group"
                 >
                   <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13 10V3L4 14h7v7l9-11h-7z"/>
@@ -161,7 +161,7 @@ const Landing = () => {
 
             <h1 className="text-5xl lg:text-6xl font-bold text-gray-900 leading-tight">
               The easiest way to manage your{' '}
-              <span className="bg-gradient-to-r from-emerald-600 to-teal-600 bg-clip-text text-transparent">
+              <span className="text-blue-900 bg-clip-text text-transparent">
                 debts
               </span>
             </h1>
@@ -174,7 +174,7 @@ const Landing = () => {
             <div className="flex flex-col sm:flex-row gap-4">
               <button
                 onClick={() => navigate('/register')}
-                className="px-8 py-4 bg-gradient-to-r from-emerald-600 to-teal-600 text-white rounded-lg font-semibold text-lg hover:from-emerald-700 hover:to-teal-700 transition shadow-lg shadow-emerald-500/30"
+                className="px-8 py-4 text-blue-900 text-white rounded-lg font-semibold text-lg hover:hover:bg-blue-700 transition shadow-lg hover:shadow-lg"
               >
                 Get Started Free
               </button>
@@ -214,7 +214,7 @@ const Landing = () => {
             <div className="relative">
               
               {/* Main Dashboard Card */}
-              <div className="bg-gradient-to-br from-emerald-600 via-teal-600 to-cyan-600 rounded-2xl shadow-2xl p-8 relative overflow-hidden">
+              <div className="bg-gradient-to-br from-blue-700 via-blue-600 to-blue-800 rounded-2xl shadow-2xl p-8 relative overflow-hidden">
                 
                 {/* Hexagon Pattern */}
                 <div className="absolute inset-0 opacity-10" style={{
@@ -249,7 +249,7 @@ const Landing = () => {
                       <span className="font-bold">74%</span>
                     </div>
                     <div className="w-full bg-white/20 rounded-full h-2">
-                      <div className="bg-gradient-to-r from-emerald-300 to-teal-200 h-2 rounded-full" style={{width: '74%'}}></div>
+                      <div className="bg-gradient-to-r from-blue-400 to-blue-300 h-2 rounded-full" style={{width: '74%'}}></div>
                     </div>
                   </div>
                 </div>
