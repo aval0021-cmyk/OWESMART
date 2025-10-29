@@ -82,10 +82,10 @@ const Login = () => {
   };
 
   return (
-    <div className="min-h-screen flex flex-col lg:flex-row overflow-hidden bg-gray-50">
+    <div className="min-h-screen flex flex-col lg:flex-row overflow-hidden">
       
       {/* Left Column - Login Form (40% width on desktop) */}
-      <div className="w-full lg:w-2/5 bg-white flex items-center justify-center p-8 lg:p-12 overflow-y-auto shadow-lg">
+      <div className="w-full lg:w-2/5 bg-white flex items-center justify-center p-8 lg:p-12 overflow-y-auto">
         <div className="w-full max-w-md space-y-6">
           
           {/* Logo and Brand */}
@@ -98,14 +98,14 @@ const Login = () => {
                 e.currentTarget.style.display = 'none';
               }}
             />
-            <span className="text-2xl font-bold text-blue-900">
+            <span className="text-2xl font-bold bg-gradient-to-r from-blue-600 to-blue-700 bg-clip-text text-transparent">
               OweSmart
             </span>
           </div>
 
           {/* Title */}
           <div>
-            <h1 className="text-3xl font-bold text-blue-900">Log in to your account.</h1>
+            <h1 className="text-3xl font-bold text-gray-900">Log in to your account.</h1>
             <p className="mt-2 text-sm text-gray-600">Welcome back! Please enter your details.</p>
           </div>
 
@@ -197,7 +197,7 @@ const Login = () => {
             <button 
               type="submit" 
               disabled={loading}
-              className="w-full bg-blue-600 text-white py-3 rounded-lg font-medium hover:bg-blue-700 transition duration-200 shadow-md hover:shadow-lg disabled:opacity-50 disabled:cursor-not-allowed"
+              className="w-full bg-gradient-to-r from-blue-600 to-blue-700 text-white py-3 rounded-lg font-medium hover:from-blue-700 hover:to-blue-800 transition duration-200 shadow-lg hover:shadow-xl disabled:opacity-50 disabled:cursor-not-allowed"
             >
               {loading ? (
                 <span className="flex items-center justify-center gap-2">

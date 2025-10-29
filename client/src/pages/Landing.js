@@ -47,7 +47,7 @@ const Landing = () => {
                 onError={(e)=>{e.currentTarget.style.display='none'}} 
               />
             </div>
-            <span className="text-2xl font-bold text-blue-900 bg-clip-text text-transparent">
+            <span className="text-2xl font-bold bg-gradient-to-r from-blue-600 to-blue-700 bg-clip-text text-transparent">
               OweSmart
             </span>
           </div>
@@ -55,7 +55,7 @@ const Landing = () => {
           {/* Account Icon Button */}
           <button
             onClick={handleAccountClick}
-            className="flex items-center space-x-2 px-4 py-2 rounded-lg text-blue-900 text-white hover:hover:bg-blue-700 transition shadow-md hover:shadow-lg"
+            className="flex items-center space-x-2 px-4 py-2 rounded-lg bg-gradient-to-r from-blue-600 to-blue-700 text-white hover:from-blue-700 hover:to-blue-800 transition shadow-md hover:shadow-lg"
             aria-label={user ? "Go to Dashboard" : "Login"}
           >
             <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
