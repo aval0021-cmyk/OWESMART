@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Coinho - Login</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* Hexagon pattern background */
+        .hexagon-bg {
+            background-color: #2563eb;
+            background-image: 
+                linear-gradient(30deg, #1d4ed8 12%, transparent 12.5%, transparent 87%, #1d4ed8 87.5%, #1d4ed8),
+                linear-gradient(150deg, #1d4ed8 12%, transparent 12.5%, transparent 87%, #1d4ed8 87.5%, #1d4ed8),
+                linear-gradient(30deg, #1d4ed8 12%, transparent 12.5%, transparent 87%, #1d4ed8 87.5%, #1d4ed8),
+                linear-gradient(150deg, #1d4ed8 12%, transparent 12.5%, transparent 87%, #1d4ed8 87.5%, #1d4ed8),
+                linear-gradient(60deg, rgba(29, 78, 216, 0.3) 25%, transparent 25.5%, transparent 75%, rgba(29, 78, 216, 0.3) 75%, rgba(29, 78, 216, 0.3)),
+                linear-gradient(60deg, rgba(29, 78, 216, 0.3) 25%, transparent 25.5%, transparent 75%, rgba(29, 78, 216, 0.3) 75%, rgba(29, 78, 216, 0.3));
+            background-size: 80px 140px;
+            background-position: 0 0, 0 0, 40px 70px, 40px 70px, 0 0, 40px 70px;
+        }
+
+        /* Float animation for dashboard elements */
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) translateX(0px); }
+            33% { transform: translateY(-20px) translateX(10px); }
+            66% { transform: translateY(-10px) translateX(-10px); }
+        }
+
+        .float-anim {
+            animation: float 6s ease-in-out infinite;
+        }
+
+        .float-anim-delay {
+            animation: float 8s ease-in-out infinite;
+            animation-delay: 1s;
+        }
+
+        /* Password visibility toggle */
+        .password-toggle {
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body class="h-screen overflow-hidden">
+    <div class="flex flex-col lg:flex-row h-full">
+        
+        <!-- Left Column - Login Form (40% width on desktop) -->
+        <div class="w-full lg:w-2/5 bg-white flex items-center justify-center p-8 overflow-y-auto">
+            <div class="w-full max-w-md space-y-8">
+                
+                <!-- Logo -->
+                <div class="flex items-center space-x-2">
+                    <div class="w-8 h-8 bg-blue-600 rounded-lg flex items-center justify-center text-white font-bold text-xl">
+                        C
+                    </div>
+                    <span class="text-2xl font-bold text-gray-900">Coinho</span>
+                </div>
+
+                <!-- Title -->
+                <div>
+                    <h1 class="text-3xl font-bold text-gray-900">Log in to your account.</h1>
+                    <p class="mt-2 text-sm text-gray-600">Welcome back! Please enter your details.</p>
+                </div>
+
+                <!-- Login Form -->
+                <form class="space-y-6" onsubmit="event.preventDefault(); alert('Login functionality would go here!');">
+                    
+                    <!-- Email Input -->
+                    <div>
+                        <label for="email" class="block text-sm font-medium text-gray-700 mb-2">
+                            Email Address
+                        </label>
+                        <input 
+                            id="email" 
+                            name="email" 
+                            type="email" 
+                            required 
+                            class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition"
+                            placeholder="Enter your email"
+                        />
+                    </div>
+
+                    <!-- Password Input -->
+                    <div>
+                        <label for="password" class="block text-sm font-medium text-gray-700 mb-2">
+                            Password
+                        </label>
+                        <div class="relative">
+                            <input 
+                                id="password" 
+                                name="password" 
+                                type="password" 
+                                required 
+                                class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition pr-12"
+                                placeholder="Enter your password"
+                            />
+                            <button 
+                                type="button" 
+                                class="absolute right-4 top-1/2 -translate-y-1/2 text-gray-500 hover:text-gray-700 password-toggle"
+                                onclick="togglePassword()"
+                            >
+                                <svg id="eye-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M2.036 12.322a1.012 1.012 0 010-.639C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178.07.207.07.431 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.638 0-8.573-3.007-9.963-7.178z" />
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                                </svg>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Forgot Password Link -->
+                    <div class="flex justify-end">
+                        <a href="#" class="text-sm font-medium text-blue-600 hover:text-blue-700">
+                            Forgot password?
+                        </a>
+                    </div>
+
+                    <!-- Login Button -->
+                    <button 
+                        type="submit" 
+                        class="w-full bg-blue-600 text-white py-3 rounded-lg font-medium hover:bg-blue-700 transition duration-200 shadow-lg shadow-blue-500/50"
+                    >
+                        Login
+                    </button>
+
+                    <!-- Divider -->
+                    <div class="relative">
+                        <div class="absolute inset-0 flex items-center">
+                            <div class="w-full border-t border-gray-300"></div>
+                        </div>
+                        <div class="relative flex justify-center text-sm">
+                            <span class="px-4 bg-white text-gray-500">or</span>
+                        </div>
+                    </div>
+
+                    <!-- Social Login Buttons -->
+                    <div class="space-y-3">
+                        <button 
+                            type="button" 
+                            class="w-full flex items-center justify-center space-x-3 px-4 py-3 border border-gray-300 rounded-lg hover:bg-gray-50 transition"
+                        >
+                            <svg class="w-5 h-5" viewBox="0 0 24 24">
+                                <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
+                                <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
+                                <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/>
+                                <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/>
+                            </svg>
+                            <span class="text-gray-700 font-medium">Continue with Google</span>
+                        </button>
+
+                        <button 
+                            type="button" 
+                            class="w-full flex items-center justify-center space-x-3 px-4 py-3 border border-gray-300 rounded-lg hover:bg-gray-50 transition"
+                        >
+                            <svg class="w-5 h-5" fill="#1877F2" viewBox="0 0 24 24">
+                                <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
+                            </svg>
+                            <span class="text-gray-700 font-medium">Continue with Facebook</span>
+                        </button>
+                    </div>
+
+                    <!-- Sign Up Link -->
+                    <div class="text-center text-sm text-gray-600">
+                        Don't you have an account? 
+                        <a href="#" class="font-medium text-blue-600 hover:text-blue-700">Sign Up</a>
+                    </div>
+                </form>
+
+            </div>
+        </div>
+
+        <!-- Right Column - Marketing Panel (60% width on desktop) -->
+        <div class="w-full lg:w-3/5 hexagon-bg relative overflow-hidden flex items-center justify-center p-8 lg:p-16">
+            
+            <!-- Content Container -->
+            <div class="relative z-10 text-center space-y-8 max-w-2xl">
+                <h2 class="text-4xl lg:text-5xl font-bold text-white leading-tight">
+                    The easiest way to manage your portfolio.
+                </h2>
+                <p class="text-xl text-blue-100">
+                    Join the Coinho community now!
+                </p>
+            </div>
+
+            <!-- Floating Dashboard Elements -->
+            <div class="absolute inset-0 pointer-events-none">
+                
+                <!-- Dashboard Card 1 - Top Left -->
+                <div class="absolute top-16 left-8 lg:left-16 float-anim">
+                    <div class="bg-white/10 backdrop-blur-md rounded-xl p-4 shadow-2xl border border-white/20 w-64">
+                        <div class="flex items-center justify-between mb-3">
+                            <span class="text-white/80 text-sm font-medium">Portfolio Value</span>
+                            <svg class="w-4 h-4 text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"/>
+                            </svg>
+                        </div>
+                        <div class="text-2xl font-bold text-white mb-1">$24,563.89</div>
+                        <div class="text-green-400 text-sm">+12.5% this month</div>
+                        <!-- Mini chart -->
+                        <div class="mt-3 flex items-end space-x-1 h-12">
+                            <div class="bg-white/30 w-2 h-6 rounded-t"></div>
+                            <div class="bg-white/30 w-2 h-8 rounded-t"></div>
+                            <div class="bg-white/30 w-2 h-10 rounded-t"></div>
+                            <div class="bg-white/50 w-2 h-12 rounded-t"></div>
+                            <div class="bg-white/30 w-2 h-9 rounded-t"></div>
+                            <div class="bg-white/30 w-2 h-11 rounded-t"></div>
+                            <div class="bg-white/30 w-2 h-7 rounded-t"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Dashboard Card 2 - Bottom Right -->
+                <div class="absolute bottom-16 right-8 lg:right-16 float-anim-delay">
+                    <div class="bg-white/10 backdrop-blur-md rounded-xl p-4 shadow-2xl border border-white/20 w-72">
+                        <div class="text-white/80 text-sm font-medium mb-3">Recent Transactions</div>
+                        <div class="space-y-2">
+                            <div class="flex items-center justify-between bg-white/5 rounded-lg p-2">
+                                <div class="flex items-center space-x-3">
+                                    <div class="w-8 h-8 bg-blue-500 rounded-full flex items-center justify-center">
+                                        <span class="text-white text-xs font-bold">B</span>
+                                    </div>
+                                    <div>
+                                        <div class="text-white text-sm font-medium">Bitcoin</div>
+                                        <div class="text-white/60 text-xs">BTC</div>
+                                    </div>
+                                </div>
+                                <div class="text-right">
+                                    <div class="text-white text-sm font-medium">+0.025</div>
+                                    <div class="text-green-400 text-xs">+$1,234</div>
+                                </div>
+                            </div>
+                            <div class="flex items-center justify-between bg-white/5 rounded-lg p-2">
+                                <div class="flex items-center space-x-3">
+                                    <div class="w-8 h-8 bg-purple-500 rounded-full flex items-center justify-center">
+                                        <span class="text-white text-xs font-bold">E</span>
+                                    </div>
+                                    <div>
+                                        <div class="text-white text-sm font-medium">Ethereum</div>
+                                        <div class="text-white/60 text-xs">ETH</div>
+                                    </div>
+                                </div>
+                                <div class="text-right">
+                                    <div class="text-white text-sm font-medium">-0.15</div>
+                                    <div class="text-red-400 text-xs">-$890</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Dashboard Card 3 - Center Right -->
+                <div class="absolute top-1/2 right-4 lg:right-32 -translate-y-1/2 float-anim hidden lg:block">
+                    <div class="bg-white/10 backdrop-blur-md rounded-xl p-4 shadow-2xl border border-white/20 w-48">
+                        <div class="text-white/80 text-sm font-medium mb-2">Quick Stats</div>
+                        <div class="space-y-2">
+                            <div class="flex justify-between items-center">
+                                <span class="text-white/70 text-xs">Assets</span>
+                                <span class="text-white font-medium">12</span>
+                            </div>
+                            <div class="flex justify-between items-center">
+                                <span class="text-white/70 text-xs">Win Rate</span>
+                                <span class="text-green-400 font-medium">68%</span>
+                            </div>
+                            <div class="flex justify-between items-center">
+                                <span class="text-white/70 text-xs">Active</span>
+                                <span class="text-white font-medium">8</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Decorative Chart Line - Bottom Left -->
+                <div class="absolute bottom-24 left-4 lg:left-24 float-anim-delay hidden md:block">
+                    <svg width="120" height="80" viewBox="0 0 120 80" fill="none">
+                        <path d="M0 60 Q30 40, 60 50 T120 20" stroke="white" stroke-width="3" opacity="0.3" fill="none"/>
+                        <path d="M0 60 Q30 40, 60 50 T120 20" stroke="white" stroke-width="2" opacity="0.6" fill="none" stroke-dasharray="5,5"/>
+                    </svg>
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <script>
+        function togglePassword() {
+            const passwordInput = document.getElementById('password');
+            const eyeIcon = document.getElementById('eye-icon');
+            
+            if (passwordInput.type === 'password') {
+                passwordInput.type = 'text';
+                eyeIcon.innerHTML = `
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M3.98 8.223A10.477 10.477 0 001.934 12C3.226 16.338 7.244 19.5 12 19.5c.993 0 1.953-.138 2.863-.395M6.228 6.228A10.45 10.45 0 0112 4.5c4.756 0 8.773 3.162 10.065 7.498a10.523 10.523 0 01-4.293 5.774M6.228 6.228L3 3m3.228 3.228l3.65 3.65m7.894 7.894L21 21m-3.228-3.228l-3.65-3.65m0 0a3 3 0 10-4.243-4.243m4.242 4.242L9.88 9.88" />
+                `;
+            } else {
+                passwordInput.type = 'password';
+                eyeIcon.innerHTML = `
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M2.036 12.322a1.012 1.012 0 010-.639C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178.07.207.07.431 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.638 0-8.573-3.007-9.963-7.178z" />
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                `;
+            }
+        }
+    </script>
+</body>
+</html>
