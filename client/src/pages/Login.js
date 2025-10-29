@@ -3,6 +3,7 @@ import { useNavigate, Link } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import { useToast } from '../context/ToastContext';
 import { signInWithGoogle } from '../config/firebase';
+import GlobalLogo from '../components/GlobalLogo';
 
 const Login = () => {
   const [email, setEmail] = useState('');
@@ -59,21 +60,19 @@ const Login = () => {
     try {
       const userData = await signInWithGoogle();
       
-      // You can now send this userData to your backend to create/login the user
-      console.log('Google User Data:', userData);
+      // Send userData to backend to create/login user
+      await googleAuth({
+        uid: userData.uid,
+        email: userData.email,
+        displayName: userData.displayName,
+        photoURL: userData.photoURL,
+        emailVerified: userData.emailVerified
+      });
       
-      toast.success(`Welcome ${userData.displayName}! 🎉`);
-      
-      // For now, we'll navigate to dashboard
-      // In production, you'd want to:
-      // 1. Send userData to your backend
-      // 2. Create/update user in your database
-      // 3. Get a session token
-      // 4. Then navigate to dashboard
-      
+      toast.success(`Welcome back, ${userData.displayName}! 🎉`);
       navigate('/dashboard');
     } catch (err) {
-      const errorMsg = err.message || 'Google sign-in failed';
+      const errorMsg = err.response?.data?.message || err.message || 'Google sign-in failed';
       setError(errorMsg);
       toast.error(errorMsg);
     } finally {
@@ -90,6 +89,7 @@ const Login = () => {
           
           {/* Logo and Brand */}
           <div className="flex items-center space-x-3">
+            <GlobalLogo size="sm" />
             <span className="text-2xl font-bold bg-gradient-to-r from-blue-600 to-blue-700 bg-clip-text text-transparent">
               OweSmart
             </span>
