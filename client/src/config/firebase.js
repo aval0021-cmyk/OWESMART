@@ -1,17 +1,19 @@
 // Firebase configuration
-// Replace these with your actual Firebase project credentials from Firebase Console
-// Get them from: https://console.firebase.google.com/ -> Project Settings -> General
+// Credentials are loaded from environment variables (client/.env.local)
+// Get your credentials from: https://console.firebase.google.com/ -> Project Settings -> General
 
 import { initializeApp } from 'firebase/app';
 import { getAuth, GoogleAuthProvider, signInWithPopup } from 'firebase/auth';
+import { getAnalytics, isSupported } from 'firebase/analytics';
 
 const firebaseConfig = {
-  apiKey: "YOUR_API_KEY",
-  authDomain: "YOUR_PROJECT_ID.firebaseapp.com",
-  projectId: "YOUR_PROJECT_ID",
-  storageBucket: "YOUR_PROJECT_ID.appspot.com",
-  messagingSenderId: "YOUR_MESSAGING_SENDER_ID",
-  appId: "YOUR_APP_ID"
+  apiKey: process.env.REACT_APP_FIREBASE_API_KEY,
+  authDomain: process.env.REACT_APP_FIREBASE_AUTH_DOMAIN,
+  projectId: process.env.REACT_APP_FIREBASE_PROJECT_ID,
+  storageBucket: process.env.REACT_APP_FIREBASE_STORAGE_BUCKET,
+  messagingSenderId: process.env.REACT_APP_FIREBASE_MESSAGING_SENDER_ID,
+  appId: process.env.REACT_APP_FIREBASE_APP_ID,
+  measurementId: process.env.REACT_APP_FIREBASE_MEASUREMENT_ID
 };
 
 // Initialize Firebase
@@ -20,6 +22,20 @@ const app = initializeApp(firebaseConfig);
 // Initialize Firebase Authentication and get a reference to the service
 export const auth = getAuth(app);
 export const googleProvider = new GoogleAuthProvider();
+
+// Initialize Analytics (optional, only if supported)
+let analytics = null;
+(async () => {
+  try {
+    if (await isSupported()) {
+      analytics = getAnalytics(app);
+    }
+  } catch (e) {
+    // Analytics not supported in this environment
+  }
+})();
+
+export { analytics };
 
 // Google Sign-In function
 export const signInWithGoogle = async () => {
