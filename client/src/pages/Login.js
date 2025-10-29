@@ -90,14 +90,6 @@ const Login = () => {
           
           {/* Logo and Brand */}
           <div className="flex items-center space-x-3">
-            <img
-              src="/logo.jpg"
-              alt="OweSmart Logo"
-              className="w-10 h-10 object-cover rounded-lg shadow-md"
-              onError={(e) => {
-                e.currentTarget.style.display = 'none';
-              }}
-            />
             <span className="text-2xl font-bold bg-gradient-to-r from-blue-600 to-blue-700 bg-clip-text text-transparent">
               OweSmart
             </span>

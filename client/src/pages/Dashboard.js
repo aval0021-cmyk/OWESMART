@@ -11,6 +11,7 @@ const Dashboard = () => {
   const [suggestion, setSuggestion] = useState(null);
   const [loading, setLoading] = useState(true);
   const [showScrollTop, setShowScrollTop] = useState(false);
+  const [menuOpen, setMenuOpen] = useState(false);
 
   useEffect(() => {
     loadDashboard();
@@ -74,24 +75,143 @@ const Dashboard = () => {
   return (
     <div className="min-h-screen bg-slate-900 pb-24">
       {/* Header Section - Sticky */}
-      <div className="sticky top-0 z-40 bg-gradient-to-b from-slate-800 to-slate-900 shadow-lg px-4 sm:px-6 pt-6 pb-4">
-        <div className="flex flex-col sm:flex-row justify-between items-start gap-4">
-          <div className="flex-1">
-            <h1 className="text-white text-xl sm:text-2xl font-bold mb-1">
+      <div className="sticky top-0 z-40 bg-gradient-to-b from-slate-800 to-slate-900 shadow-lg px-3 sm:px-6 pt-4 sm:pt-6 pb-3 sm:pb-4">
+        <div className="flex justify-between items-center gap-2 sm:gap-4">
+          {/* Left: Hamburger Menu + Logo */}
+          <div className="flex items-center gap-2 sm:gap-3">
+            <button 
+              onClick={() => setMenuOpen(!menuOpen)}
+              className="text-slate-300 hover:text-white transition p-1.5 sm:p-2 rounded-lg hover:bg-slate-700"
+              aria-label="Menu"
+            >
+              <svg className="w-5 h-5 sm:w-6 sm:h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                {menuOpen ? (
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12"/>
+                ) : (
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h16M4 18h16"/>
+                )}
+              </svg>
+            </button>
+
+            {/* Logo */}
+            <div className="w-8 h-8 sm:w-10 sm:h-10 bg-blue-600 rounded-lg flex items-center justify-center shadow-md">
+              <img 
+                src="/logo.jpg" 
+                alt="OweSmart" 
+                className="w-6 h-6 sm:w-8 sm:h-8 object-cover rounded-lg" 
+                onError={(e)=>{e.currentTarget.style.display='none'}} 
+              />
+            </div>
+
+            <span className="text-base sm:text-xl font-bold bg-gradient-to-r from-blue-600 to-blue-700 bg-clip-text text-transparent hidden sm:inline">
+              OweSmart
+            </span>
+          </div>
+
+          {/* Center: User Greeting */}
+          <div className="flex-1 text-center">
+            <h1 className="text-base sm:text-xl lg:text-2xl font-bold text-white mb-0.5 sm:mb-1">
               Hi {user?.name?.split(' ')[0] || 'Alya'}
             </h1>
-            <p className="text-slate-300 text-sm sm:text-base">here's your debt overview</p>
+            <p className="text-xs sm:text-sm lg:text-base text-slate-300 hidden sm:block">Here's your debt overview</p>
           </div>
-          <div className="flex items-center gap-2 sm:gap-3 w-full sm:w-auto">
+
+          {/* Right: Notifications and Logout */}
+          <div className="flex items-center gap-1.5 sm:gap-2 lg:gap-3">
             <NotificationCenter />
             <button
               onClick={logout}
-              className="bg-slate-700 text-white px-3 py-2 rounded-lg hover:bg-slate-600 text-sm sm:text-base flex-1 sm:flex-none"
+              className="bg-slate-700 text-white px-2 py-1.5 sm:px-3 sm:py-2 rounded-lg hover:bg-slate-600 text-xs sm:text-sm lg:text-base"
             >
               Logout
             </button>
           </div>
         </div>
+
+        {/* Dropdown Menu */}
+        {menuOpen && (
+          <div className="mt-4 bg-slate-800 rounded-lg shadow-xl border border-slate-700 animate-slideDown">
+            <div className="p-2">
+              <button 
+                onClick={() => { setMenuOpen(false); navigate('/'); }}
+                className="w-full flex items-center space-x-3 px-4 py-3 rounded-lg hover:bg-slate-700 transition group"
+              >
+                <svg className="w-5 h-5 text-slate-400 group-hover:text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/>
+                </svg>
+                <div className="text-left">
+                  <p className="font-semibold text-white group-hover:text-teal-400">Home</p>
+                  <p className="text-xs text-slate-400">Back to homepage</p>
+                </div>
+              </button>
+
+              <button 
+                onClick={() => { setMenuOpen(false); navigate('/add-debt'); }}
+                className="w-full flex items-center space-x-3 px-4 py-3 rounded-lg hover:bg-slate-700 transition group"
+              >
+                <svg className="w-5 h-5 text-slate-400 group-hover:text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 4v16m8-8H4"/>
+                </svg>
+                <div className="text-left">
+                  <p className="font-semibold text-white group-hover:text-teal-400">Add Debt</p>
+                  <p className="text-xs text-slate-400">Record a new debt</p>
+                </div>
+              </button>
+
+              <button 
+                onClick={() => { setMenuOpen(false); navigate('/payment'); }}
+                className="w-full flex items-center space-x-3 px-4 py-3 rounded-lg hover:bg-slate-700 transition group"
+              >
+                <svg className="w-5 h-5 text-slate-400 group-hover:text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M17 9V7a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2m2 4h10a2 2 0 002-2v-6a2 2 0 00-2-2H9a2 2 0 00-2 2v6a2 2 0 002 2zm7-5a2 2 0 11-4 0 2 2 0 014 0z"/>
+                </svg>
+                <div className="text-left">
+                  <p className="font-semibold text-white group-hover:text-teal-400">Record Payment</p>
+                  <p className="text-xs text-slate-400">Track your payment</p>
+                </div>
+              </button>
+
+              <button 
+                onClick={() => { setMenuOpen(false); navigate('/ai-coach'); }}
+                className="w-full flex items-center space-x-3 px-4 py-3 rounded-lg hover:bg-slate-700 transition group"
+              >
+                <svg className="w-5 h-5 text-slate-400 group-hover:text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"/>
+                </svg>
+                <div className="text-left">
+                  <p className="font-semibold text-white group-hover:text-teal-400">AI Coach</p>
+                  <p className="text-xs text-slate-400">Get smart advice</p>
+                </div>
+              </button>
+
+              <button 
+                onClick={() => { setMenuOpen(false); navigate('/how-it-works'); }}
+                className="w-full flex items-center space-x-3 px-4 py-3 rounded-lg hover:bg-slate-700 transition group"
+              >
+                <svg className="w-5 h-5 text-slate-400 group-hover:text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                </svg>
+                <div className="text-left">
+                  <p className="font-semibold text-white group-hover:text-teal-400">How It Works</p>
+                  <p className="text-xs text-slate-400">Learn the process</p>
+                </div>
+              </button>
+
+              <button 
+                onClick={() => { setMenuOpen(false); navigate('/pricing'); }}
+                className="w-full flex items-center space-x-3 px-4 py-3 rounded-lg hover:bg-slate-700 transition group"
+              >
+                <svg className="w-5 h-5 text-slate-400 group-hover:text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                </svg>
+                <div className="text-left">
+                  <p className="font-semibold text-white group-hover:text-teal-400">Pricing</p>
+                  <p className="text-xs text-slate-400">View our plans</p>
+                </div>
+              </button>
+            </div>
+          </div>
+        )}
       </div>
 
       {/* Main Content */}

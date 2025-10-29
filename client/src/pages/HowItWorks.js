@@ -10,7 +10,7 @@ const HowItWorks = () => {
       <div className="max-w-lg mx-auto mb-8">
         <button
           onClick={() => navigate(-1)}
-          className="mb-4 text-teal-600 hover:text-teal-700 font-medium text-sm"
+          className="mb-4 text-blue-600 hover:text-blue-700 font-medium text-sm"
         >
           ← Back
         </button>
@@ -25,7 +25,7 @@ const HowItWorks = () => {
       {/* Steps Container */}
       <div className="max-w-lg mx-auto space-y-5">
         {/* Step 1 */}
-        <div className="bg-gradient-to-br from-teal-400 to-teal-500 rounded-3xl p-6 shadow-lg transform hover:scale-105 transition-transform">
+        <div className="bg-gradient-to-br from-blue-600 to-blue-700 rounded-3xl p-6 shadow-lg transform hover:scale-105 transition-transform">
           <h2 className="text-xl md:text-2xl font-bold text-white mb-3">
             Step 1: Consolidate Everything
           </h2>
@@ -36,7 +36,7 @@ const HowItWorks = () => {
         </div>
 
         {/* Step 2 */}
-        <div className="bg-gradient-to-br from-teal-400 to-teal-500 rounded-3xl p-6 shadow-lg transform hover:scale-105 transition-transform">
+        <div className="bg-gradient-to-br from-blue-600 to-blue-700 rounded-3xl p-6 shadow-lg transform hover:scale-105 transition-transform">
           <h2 className="text-xl md:text-2xl font-bold text-white mb-3">
             Step 2: Get Your AI Strategy
           </h2>
@@ -47,7 +47,7 @@ const HowItWorks = () => {
         </div>
 
         {/* Step 3 */}
-        <div className="bg-gradient-to-br from-teal-400 to-teal-500 rounded-3xl p-6 shadow-lg transform hover:scale-105 transition-transform">
+        <div className="bg-gradient-to-br from-blue-600 to-blue-700 rounded-3xl p-6 shadow-lg transform hover:scale-105 transition-transform">
           <h2 className="text-xl md:text-2xl font-bold text-white mb-3">
             Step 3: Track Your Progress & Win
           </h2>
@@ -62,7 +62,7 @@ const HowItWorks = () => {
       <div className="max-w-lg mx-auto mt-8">
         <button
           onClick={() => navigate('/register')}
-          className="w-full py-3 bg-teal-500 text-white rounded-full font-semibold text-base shadow-lg hover:bg-teal-600 transition-colors"
+          className="w-full py-3 bg-gradient-to-r from-blue-600 to-blue-700 text-white rounded-full font-semibold text-base shadow-lg hover:from-blue-700 hover:to-blue-800 transition-colors"
         >
           Get Started Now
         </button>
@@ -70,8 +70,8 @@ const HowItWorks = () => {
 
       {/* Background Decoration */}
       <div className="fixed inset-0 pointer-events-none opacity-5">
-        <div className="absolute top-20 left-10 w-64 h-64 bg-teal-400 rounded-full blur-3xl"></div>
-        <div className="absolute bottom-20 right-10 w-96 h-96 bg-teal-300 rounded-full blur-3xl"></div>
+        <div className="absolute top-20 left-10 w-64 h-64 bg-blue-400 rounded-full blur-3xl"></div>
+        <div className="absolute bottom-20 right-10 w-96 h-96 bg-blue-300 rounded-full blur-3xl"></div>
       </div>
     </div>
   );

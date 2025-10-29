@@ -90,7 +90,7 @@ const PaymentPage = () => {
       <div className="mb-8">
         <button
           onClick={() => navigate('/dashboard')}
-          className="text-teal-600 hover:text-teal-700 font-medium mb-4"
+          className="text-blue-600 hover:text-blue-700 font-medium mb-4"
         >
           ← Back to Dashboard
         </button>
@@ -123,7 +123,7 @@ const PaymentPage = () => {
               value={selectedDebt}
               onChange={(e) => setSelectedDebt(e.target.value)}
               required
-              className="w-full px-4 py-4 rounded-2xl bg-white text-black border-2 border-gray-300 focus:border-teal-500 focus:outline-none"
+              className="w-full px-4 py-4 rounded-2xl bg-white text-black border-2 border-gray-300 focus:border-blue-500 focus:outline-none"
             >
               <option value="">Choose a debt...</option>
               {debts.map((debt) => (
@@ -147,7 +147,7 @@ const PaymentPage = () => {
               onChange={(e) => setAmount(e.target.value)}
               required
               placeholder="0.00"
-              className="w-full px-4 py-4 rounded-2xl bg-white text-black border-2 border-gray-300 focus:border-teal-500 focus:outline-none text-xl"
+              className="w-full px-4 py-4 rounded-2xl bg-white text-black border-2 border-gray-300 focus:border-blue-500 focus:outline-none text-xl"
             />
           </div>
 
@@ -161,7 +161,7 @@ const PaymentPage = () => {
               value={paymentDate}
               onChange={(e) => setPaymentDate(e.target.value)}
               required
-              className="w-full px-4 py-4 rounded-2xl bg-white text-black border-2 border-gray-300 focus:border-teal-500 focus:outline-none"
+              className="w-full px-4 py-4 rounded-2xl bg-white text-black border-2 border-gray-300 focus:border-blue-500 focus:outline-none"
             />
           </div>
 
@@ -175,7 +175,7 @@ const PaymentPage = () => {
               onChange={(e) => setNotes(e.target.value)}
               placeholder="Add any notes about this payment..."
               rows={4}
-              className="w-full px-4 py-4 rounded-2xl bg-white text-black border-2 border-gray-300 focus:border-teal-500 focus:outline-none resize-none"
+              className="w-full px-4 py-4 rounded-2xl bg-white text-black border-2 border-gray-300 focus:border-blue-500 focus:outline-none resize-none"
             />
           </div>
 
@@ -186,7 +186,7 @@ const PaymentPage = () => {
             className={`w-full py-4 rounded-full font-semibold text-lg transition-all ${
               loading
                 ? 'bg-gray-600 text-gray-400 cursor-not-allowed'
-                : 'bg-teal-500 text-white hover:bg-teal-600 shadow-lg'
+                : 'bg-gradient-to-r from-blue-600 to-blue-700 text-white hover:from-blue-700 hover:to-blue-800 shadow-lg'
             }`}
           >
             {loading ? 'Recording...' : 'Record Payment'}
@@ -218,7 +218,7 @@ const PaymentPage = () => {
                   {amount && (
                     <div className="flex justify-between pt-4 border-t border-gray-300">
                       <span>New Balance:</span>
-                      <span className="text-teal-600 font-bold text-xl">
+                      <span className="text-blue-600 font-bold text-xl">
                         RM {((debt.currentBalance || debt.amount || 0) - parseFloat(amount)).toFixed(2)}
                       </span>
                     </div>

@@ -39,6 +39,7 @@ const Landing = () => {
               </svg>
             </button>
 
+            {/* Logo */}
             <div className="w-10 h-10 bg-blue-600 rounded-lg flex items-center justify-center shadow-md">
               <img 
                 src="/logo.jpg" 
@@ -47,6 +48,7 @@ const Landing = () => {
                 onError={(e)=>{e.currentTarget.style.display='none'}} 
               />
             </div>
+
             <span className="text-2xl font-bold bg-gradient-to-r from-blue-600 to-blue-700 bg-clip-text text-transparent">
               OweSmart
             </span>
@@ -159,14 +161,14 @@ const Landing = () => {
               </span>
             </div>
 
-            <h1 className="text-5xl lg:text-6xl font-bold text-gray-900 leading-tight">
+            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-gray-900 leading-tight">
               The easiest way to manage your{' '}
               <span className="text-blue-900 bg-clip-text text-transparent">
                 debts
               </span>
             </h1>
 
-            <p className="text-xl text-gray-600 leading-relaxed">
+            <p className="text-lg sm:text-xl text-gray-600 leading-relaxed">
               Take control of your financial future with AI-powered debt tracking, personalized coaching, and smart payment strategies. Join thousands who are already debt-free.
             </p>
 
@@ -174,13 +176,13 @@ const Landing = () => {
             <div className="flex flex-col sm:flex-row gap-4">
               <button
                 onClick={() => navigate('/register')}
-                className="px-8 py-4 text-blue-900 text-white rounded-lg font-semibold text-lg hover:hover:bg-blue-700 transition shadow-lg hover:shadow-lg"
+                className="px-8 py-4 bg-gradient-to-r from-blue-600 to-blue-700 text-white rounded-lg font-semibold text-lg hover:from-blue-700 hover:to-blue-800 transition shadow-lg hover:shadow-xl"
               >
                 Get Started Free
               </button>
               <button
                 onClick={() => navigate('/login')}
-                className="px-8 py-4 bg-white border-2 border-gray-300 text-gray-700 rounded-lg font-semibold text-lg hover:border-emerald-600 hover:text-emerald-600 transition"
+                className="px-8 py-4 bg-white border-2 border-gray-300 text-gray-700 rounded-lg font-semibold text-lg hover:border-blue-600 hover:text-blue-600 transition"
               >
                 Login
               </button>
