@@ -6,7 +6,14 @@ const notificationScheduler = require('./services/notificationScheduler');
 const app = express();
 
 // Middleware
-app.use(cors());
+
+app.use(cors({
+  origin: 'http://localhost:3000',  // your React frontend
+  methods: ['GET', 'POST', 'PUT', 'DELETE'],
+  allowedHeaders: ['Content-Type', 'Authorization'],
+  credentials: true
+}));
+
 app.use(express.json());
 
 // Add error handler for uncaught exceptions

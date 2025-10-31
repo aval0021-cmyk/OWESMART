@@ -6,6 +6,7 @@ import axios from 'axios';
 const PaymentPage = () => {
   const navigate = useNavigate();
   const toast = useToast();
+  const [paymentMethod, setPaymentMethod] = useState('manual'); // 'manual' or 'fpx'
   const [selectedDebt, setSelectedDebt] = useState('');
   const [amount, setAmount] = useState('');
   const [paymentDate, setPaymentDate] = useState(new Date().toISOString().split('T')[0]);
@@ -32,6 +33,25 @@ const PaymentPage = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    // If FPX payment selected, redirect to checkout
+    if (paymentMethod === 'fpx') {
+      const debt = debts.find(d => d.id === parseInt(selectedDebt));
+      if (!debt) {
+        toast.error('Please select a debt');
+        return;
+      }
+      if (!amount || parseFloat(amount) <= 0) {
+        toast.error('Please enter a valid amount');
+        return;
+      }
+      navigate('/debt-payment-checkout', { 
+        state: { debt, amount } 
+      });
+      return;
+    }
+
+    // Manual payment recording (existing logic)
     setLoading(true);
 
     try {
@@ -113,6 +133,66 @@ const PaymentPage = () => {
           </div>
         ) : (
         <>
+        {/* Payment Method Selection */}
+        <div className="mb-6">
+          <label className="block text-black font-medium mb-3">
+            Payment Method
+          </label>
+          <div className="grid grid-cols-2 gap-3">
+            <button
+              type="button"
+              onClick={() => setPaymentMethod('manual')}
+              className={`p-4 rounded-2xl border-2 text-left transition-all ${
+                paymentMethod === 'manual'
+                  ? 'border-blue-600 bg-blue-50'
+                  : 'border-gray-300 hover:border-gray-400'
+              }`}
+            >
+              <div className="flex items-center gap-2 mb-2">
+                <div
+                  className={`w-5 h-5 rounded-full border-2 flex items-center justify-center ${
+                    paymentMethod === 'manual' ? 'border-blue-600' : 'border-gray-400'
+                  }`}
+                >
+                  {paymentMethod === 'manual' && (
+                    <div className="w-3 h-3 rounded-full bg-blue-600"></div>
+                  )}
+                </div>
+                <span className="font-semibold text-black">Manual Record</span>
+              </div>
+              <p className="text-sm text-gray-600">
+                Already paid? Record it here
+              </p>
+            </button>
+
+            <button
+              type="button"
+              onClick={() => setPaymentMethod('fpx')}
+              className={`p-4 rounded-2xl border-2 text-left transition-all ${
+                paymentMethod === 'fpx'
+                  ? 'border-blue-600 bg-blue-50'
+                  : 'border-gray-300 hover:border-gray-400'
+              }`}
+            >
+              <div className="flex items-center gap-2 mb-2">
+                <div
+                  className={`w-5 h-5 rounded-full border-2 flex items-center justify-center ${
+                    paymentMethod === 'fpx' ? 'border-blue-600' : 'border-gray-400'
+                  }`}
+                >
+                  {paymentMethod === 'fpx' && (
+                    <div className="w-3 h-3 rounded-full bg-blue-600"></div>
+                  )}
+                </div>
+                <span className="font-semibold text-black">Pay via FPX</span>
+              </div>
+              <p className="text-sm text-gray-600">
+                Pay now using online banking
+              </p>
+            </button>
+          </div>
+        </div>
+
         <form onSubmit={handleSubmit} className="space-y-6">
           {/* Select Debt */}
           <div>
@@ -151,7 +231,8 @@ const PaymentPage = () => {
             />
           </div>
 
-          {/* Payment Date */}
+          {/* Payment Date - Only for manual */}
+          {paymentMethod === 'manual' && (
           <div>
             <label className="block text-black font-medium mb-3">
               Payment Date
@@ -164,8 +245,10 @@ const PaymentPage = () => {
               className="w-full px-4 py-4 rounded-2xl bg-white text-black border-2 border-gray-300 focus:border-blue-500 focus:outline-none"
             />
           </div>
+          )}
 
-          {/* Notes */}
+          {/* Notes - Only for manual */}
+          {paymentMethod === 'manual' && (
           <div>
             <label className="block text-black font-medium mb-3">
               Notes (Optional)
@@ -178,6 +261,7 @@ const PaymentPage = () => {
               className="w-full px-4 py-4 rounded-2xl bg-white text-black border-2 border-gray-300 focus:border-blue-500 focus:outline-none resize-none"
             />
           </div>
+          )}
 
           {/* Submit Button */}
           <button
@@ -189,7 +273,12 @@ const PaymentPage = () => {
                 : 'bg-gradient-to-r from-blue-600 to-blue-700 text-white hover:from-blue-700 hover:to-blue-800 shadow-lg'
             }`}
           >
-            {loading ? 'Recording...' : 'Record Payment'}
+            {loading 
+              ? 'Processing...' 
+              : paymentMethod === 'fpx' 
+                ? 'Continue to Bank Selection' 
+                : 'Record Payment'
+            }
           </button>
         </form>
 

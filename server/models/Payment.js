@@ -25,7 +25,15 @@ module.exports = (sequelize) => {
     },
     type: {
       type: DataTypes.STRING,
-      defaultValue: 'Regular' // 'Regular', 'Extra', 'Final'
+      defaultValue: 'Regular' // 'Regular', 'Extra', 'Final', 'FPX Payment'
+    },
+    transactionId: {
+      type: DataTypes.STRING,
+      allowNull: true
+    },
+    status: {
+      type: DataTypes.STRING,
+      defaultValue: 'Completed' // 'Completed', 'Pending', 'Failed'
     }
   }, {
     timestamps: true,

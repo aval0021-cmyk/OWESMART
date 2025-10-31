@@ -77,12 +77,18 @@ class FPXService {
   }
 
   // Initiate FPX payment
-  initiatePayment({ orderId, amount, customerName, customerEmail, bankCode, tier }) {
+  initiatePayment({ orderId, amount, customerName, customerEmail, bankCode, tier, productDesc, returnUrl }) {
     // Generate unique transaction ID
     const transactionId = `TXN${Date.now()}${Math.random().toString(36).substring(2, 9).toUpperCase()}`;
     
     // Format amount to 2 decimal places (FPX requirement)
     const formattedAmount = parseFloat(amount).toFixed(2);
+
+    // Determine product description
+    const description = productDesc || `OweSmart ${tier} Subscription`;
+
+    // Use custom return URL if provided, otherwise use default
+    const finalReturnUrl = returnUrl || FPX_CONFIG.returnUrl;
 
     // Prepare FPX request data
     const fpxData = {
@@ -103,7 +109,7 @@ class FPXService {
       fpx_buyerId: '', // Optional
       fpx_makerName: '', // Optional
       fpx_buyerIban: '', // Optional
-      fpx_productDesc: `OweSmart ${tier} Subscription`,
+      fpx_productDesc: description,
       fpx_version: '7.0',
     };
 
@@ -116,8 +122,15 @@ class FPXService {
       gatewayUrl: FPX_CONFIG.gatewayUrl,
       formData: fpxData,
       callbackUrl: FPX_CONFIG.callbackUrl,
-      returnUrl: FPX_CONFIG.returnUrl
+      returnUrl: finalReturnUrl
     };
+  }
+
+  // Generate order ID for debt payment
+  generateDebtOrderId(userId, debtId) {
+    const timestamp = Date.now();
+    const random = Math.random().toString(36).substring(2, 6).toUpperCase();
+    return `DEBT${userId}_${debtId}_${timestamp}_${random}`;
   }
 
   // Process FPX callback

@@ -15,6 +15,8 @@ import HowItWorks from './pages/HowItWorks';
 import PaymentPage from './pages/PaymentPage';
 import FPXCheckout from './pages/FPXCheckout';
 import PaymentResult from './pages/PaymentResult';
+import DebtPaymentCheckout from './pages/DebtPaymentCheckout';
+import DebtPaymentResult from './pages/DebtPaymentResult';
 import AddDebt from './pages/AddDebt';
 import Landing from './pages/Landing';
 import GlobalLogo from './components/GlobalLogo';
@@ -74,6 +76,22 @@ function App() {
               }
             />
             <Route path="/payment/result" element={<PaymentResult />} />
+            <Route
+              path="/debt-payment-checkout"
+              element={
+                <ProtectedRoute>
+                  <DebtPaymentCheckout />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/debt-payment/result"
+              element={
+                <ProtectedRoute>
+                  <DebtPaymentResult />
+                </ProtectedRoute>
+              }
+            />
             {/* Public landing is default */}
             <Route path="/" element={<Landing />} />
           </Routes>

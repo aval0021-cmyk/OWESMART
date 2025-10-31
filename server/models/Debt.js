@@ -31,6 +31,10 @@ module.exports = (sequelize) => {
       type: DataTypes.DECIMAL(10, 2),
       allowNull: false
     },
+    currentBalance: {
+      type: DataTypes.DECIMAL(10, 2),
+      allowNull: true // Null means use 'amount' as current balance
+    },
     interestRate: {
       type: DataTypes.DECIMAL(5, 2),
       allowNull: false
