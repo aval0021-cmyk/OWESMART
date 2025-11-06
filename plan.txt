@@ -1,0 +1,358 @@
+=== OWESMART APP - SYSTEM DESIGN & LOGIC OVERVIEW ===
+
+PROJECT OVERVIEW:
+OweSmart is a comprehensive debt management and financial wellness platform designed to help users track, manage, and pay off their debts while building healthy financial habits through gamification and AI-powered coaching.
+
+=== SYSTEM ARCHITECTURE ===
+
+1. THREE-TIER ARCHITECTURE:
+   - Presentation Layer: React Frontend (client/)
+   - Application Layer: Express.js Backend (server/)
+   - Data Layer: SQLite Database (database/)
+
+2. CLIENT-SERVER MODEL:
+   - Frontend (Port 3000) communicates with Backend (Port 5000) via REST API
+   - Backend handles business logic, authentication, and database operations
+   - External integrations: FPX Payment Gateway, Google OAuth, Email Service
+
+=== CORE COMPONENTS ===
+
+A. AUTHENTICATION SYSTEM
+   Design: JWT-based stateless authentication
+   Flow:
+   1. User registers → Password hashed with bcryptjs → Stored in database
+   2. User logs in → Credentials verified → JWT token generated
+   3. Token sent with each request → Middleware validates → Access granted/denied
+   4. Google OAuth: Firebase authentication → Backend verification → JWT issued
+   
+   Security:
+   - Passwords never stored in plain text
+   - JWT expires after set time
+   - Protected routes require valid token
+
+B. DEBT MANAGEMENT SYSTEM
+   Data Model:
+   - Debt: { id, userId, creditorName, amount, currentBalance, interestRate, dueDate }
+   
+   Logic:
+   1. User adds debt with initial amount
+   2. currentBalance tracks remaining debt
+   3. Each payment reduces currentBalance
+   4. When currentBalance = 0, debt marked as paid off
+   5. Interest calculations for tracking growth
+   
+   Features:
+   - CRUD operations (Create, Read, Update, Delete)
+   - Debt consolidation recommendations
+   - Priority sorting (by amount, interest rate, due date)
+
+C. PAYMENT PROCESSING SYSTEM
+   Two Modes:
+   
+   MODE 1: Manual Payment Recording
+   Flow:
+   1. User selects "Manual Payment"
+   2. Enters amount and payment date
+   3. System creates payment record
+   4. Updates debt.currentBalance -= amount
+   5. Awards 10 gamification points
+   
+   MODE 2: FPX Payment Gateway
+   Flow:
+   1. User selects "Pay via FPX"
+   2. Redirected to DebtPaymentCheckout page
+   3. Selects bank from 17 options
+   4. System generates unique orderId
+   5. Creates FPX payment request with checksum
+   6. (DEMO MODE) Auto-redirects after 2 seconds
+   7. Callback triggered with payment details
+   8. System verifies checksum
+   9. Creates payment record with transactionId
+   10. Updates debt.currentBalance
+   11. Awards 20 gamification points
+   12. User redirected to DebtPaymentResult page
+   
+   FPX Integration Details:
+   - Checksum generation for security
+   - Order ID format: ORD-{userId}-{debtId}-{timestamp}
+   - Transaction ID format: TXN${Date.now()}${Math.random()}
+   - Callback verification ensures payment authenticity
+   - Demo mode simulates real FPX without merchant account
+
+D. GAMIFICATION SYSTEM
+   Logic:
+   - Points earned for actions:
+     * Manual payment: 10 points
+     * FPX payment: 20 points
+     * Debt paid off: 50 points
+     * Consecutive days logged in: 5 points/day
+   
+   - Badge System:
+     * First Payment: Complete first payment
+     * Debt Destroyer: Pay off first debt
+     * Consistency King: 7 days streak
+     * Wealth Builder: 1000 points total
+   
+   - Leaderboard: Ranks users by total points
+   
+   - Achievements tracked in Gamification model
+   - Motivates users through game mechanics
+
+E. AI FINANCIAL COACH
+   Design: Chat-based interface
+   Logic:
+   1. User sends question/concern
+   2. Frontend sends to /api/ai/chat
+   3. Backend processes with AI service
+   4. Response generated based on user's financial data
+   5. Chat history stored for context
+   6. Personalized advice considering:
+      - Total debt amount
+      - Payment history
+      - Income level
+      - Spending patterns
+   
+   Features:
+   - Debt payoff strategies
+   - Budget recommendations
+   - Savings advice
+   - Financial education
+
+F. SUBSCRIPTION SYSTEM
+   Tiers:
+   1. Free: Basic debt tracking, manual payments
+   2. Premium ($9.99/mo): FPX payments, AI coach, analytics
+   3. Pro ($19.99/mo): All features, priority support, advanced analytics
+   
+   Logic:
+   - Subscription status checked before premium features
+   - Upgrade flow uses same FPX gateway
+   - Recurring payments scheduled with node-cron
+   - Payment failures trigger email notifications
+
+G. REMINDER & NOTIFICATION SYSTEM
+   Design: Scheduled task system
+   
+   Reminder Logic:
+   1. User sets payment reminders
+   2. node-cron checks daily for due reminders
+   3. Email sent via Nodemailer
+   4. In-app notification created
+   5. Reminder marked as sent
+   
+   Notification Types:
+   - Payment due reminders
+   - Payment success confirmations
+   - Badge earned alerts
+   - Credit score updates
+   - Subscription renewals
+   
+   Scheduler runs every day at 9 AM
+
+H. CREDIT SCORE MONITORING
+   Logic:
+   1. User inputs credit score manually or via integration
+   2. System tracks score over time
+   3. Generates credit reports monthly
+   4. Analyzes factors affecting score:
+      - Payment history (35%)
+      - Debt utilization (30%)
+      - Credit age (15%)
+      - Credit mix (10%)
+      - New credit (10%)
+   5. Provides improvement recommendations
+
+=== DATABASE DESIGN ===
+
+MODELS & RELATIONSHIPS:
+
+1. User (1:Many with Debt, Payment, Subscription, etc.)
+   - Primary authentication table
+   - Stores profile and preferences
+
+2. Debt (Many:1 with User, 1:Many with Payment)
+   - Tracks individual debts
+   - Maintains current balance
+
+3. Payment (Many:1 with User and Debt)
+   - Records all payment transactions
+   - Stores FPX transactionId for gateway payments
+
+4. Subscription (1:1 with User)
+   - Tracks premium tier and status
+
+5. Gamification (1:1 with User)
+   - Stores points, level, badges
+
+6. Reminder (Many:1 with User and Debt)
+   - Scheduled payment reminders
+
+7. Notification (Many:1 with User)
+   - In-app notifications
+
+8. ChatHistory (Many:1 with User)
+   - AI coach conversation history
+
+9. CreditReport (Many:1 with User)
+   - Credit score tracking over time
+
+10. FinancialProfile (1:1 with User)
+    - Income, expenses, financial goals
+
+=== API DESIGN ===
+
+RESTful Principles:
+- GET: Retrieve data
+- POST: Create new data
+- PUT: Update existing data
+- DELETE: Remove data
+
+Authentication:
+- Public routes: /auth/register, /auth/login
+- Protected routes: Require JWT in Authorization header
+
+Error Handling:
+- 200: Success
+- 201: Created
+- 400: Bad request
+- 401: Unauthorized
+- 404: Not found
+- 500: Server error
+
+Response Format:
+{
+  "success": true/false,
+  "message": "Description",
+  "data": { ... }
+}
+
+=== FRONTEND DESIGN ===
+
+Component Architecture:
+- App.js: Main router and protected routes
+- Context: AuthContext for global user state
+- Pages: Individual route pages
+- Components: Reusable UI elements
+- Services: API communication layer
+
+State Management:
+- Local state: useState for component-specific data
+- Global state: Context API for user authentication
+- Session storage: Token persistence
+
+Routing:
+- Public: /, /login, /register
+- Protected: /dashboard, /debts, /payments, etc.
+- Redirects: Unauthenticated users → /login
+
+=== SECURITY MEASURES ===
+
+1. Password Security:
+   - bcryptjs hashing (salt rounds: 10)
+   - Never stored in plain text
+
+2. API Security:
+   - JWT authentication
+   - Token expiration
+   - Route protection middleware
+
+3. Payment Security:
+   - Checksum verification
+   - Transaction ID validation
+   - Callback authentication
+
+4. Data Validation:
+   - Input sanitization
+   - Type checking
+   - Error handling
+
+5. CORS:
+   - Configured to allow frontend domain only
+   - Prevents unauthorized API access
+
+=== SCALABILITY CONSIDERATIONS ===
+
+Current Design (MVP):
+- SQLite: Suitable for single-user/low traffic
+- Local file storage
+- Synchronous operations
+
+Future Enhancements:
+- PostgreSQL/MySQL: Production database
+- Redis: Caching layer
+- AWS S3: File storage
+- Load balancing: Multiple server instances
+- Microservices: Separate payment, notification services
+- Message queues: Async job processing
+
+=== USER FLOW ===
+
+1. REGISTRATION → LOGIN → DASHBOARD
+2. ADD DEBT → VIEW DEBT LIST → DEBT DETAILS
+3. MAKE PAYMENT:
+   Option A: Manual → Record → Balance Updated → Points Earned
+   Option B: FPX → Select Bank → Redirect → Pay → Callback → Verified → Balance Updated → Points Earned
+4. CHECK GAMIFICATION → View Points → Badges → Leaderboard
+5. CHAT WITH AI → Get Advice → Improve Financial Health
+6. MONITOR CREDIT → Track Score → Get Recommendations
+7. UPGRADE SUBSCRIPTION → Pay via FPX → Access Premium Features
+
+=== ERROR HANDLING STRATEGY ===
+
+Backend:
+- Try-catch blocks for async operations
+- Detailed error logging
+- User-friendly error messages
+- Database transaction rollbacks on failure
+
+Frontend:
+- Error boundaries for React components
+- Toast notifications for user feedback
+- Fallback UI for failed states
+- Retry mechanisms for failed requests
+
+=== TESTING STRATEGY ===
+
+Manual Testing:
+- User authentication flows
+- Debt CRUD operations
+- Payment processing (both modes)
+- FPX integration in demo mode
+- Gamification point calculations
+- API endpoint validation
+
+Edge Cases Tested:
+- Invalid credentials
+- Expired tokens
+- Duplicate debt entries
+- Payment amount > remaining balance
+- Network failures
+- Database constraints
+
+=== DEPLOYMENT PLAN ===
+
+Development (Current):
+- localhost:3000 (Frontend)
+- localhost:5000 (Backend)
+- SQLite database file
+
+Production (Planned):
+- Frontend: Vercel/Netlify
+- Backend: Heroku/AWS EC2
+- Database: AWS RDS (PostgreSQL)
+- FPX: Real merchant account
+- Email: SendGrid/AWS SES
+- Monitoring: Sentry/LogRocket
+
+=== CONCLUSION ===
+
+OweSmart is designed as a modular, scalable system with clear separation of concerns. The architecture supports easy feature additions, testing, and deployment. The payment gateway integration with demo mode allows full testing without real merchant credentials, making it ideal for academic submission while being production-ready with minimal configuration changes.
+
+Key Design Principles:
+1. Security First: JWT, password hashing, payment verification
+2. User Experience: Gamification, AI coach, intuitive UI
+3. Scalability: Modular architecture, database abstraction
+4. Maintainability: Clean code, comprehensive documentation
+5. Testability: Demo mode, error handling, logging
+
+Last Updated: October 31, 2025

@@ -506,9 +506,114 @@ curl http://localhost:5000/api/health
 curl http://localhost:5000/api/fpx/banks
 ```
 
+## 🌐 Marketing Website Integration
+
+The project includes a **public-facing marketing website** in the `OWESMART WEB/` folder that works alongside the main React application.
+
+### Website-to-App Linkage
+
+**Purpose:**
+- Marketing website serves as the first touchpoint for potential users
+- Educates visitors about debt management and OweSmart features
+- Drives user registrations and app downloads
+
+**How They Connect:**
+
+1. **Login/Signup Flow:**
+   ```
+   Marketing Website → Click "Login" or "Sign Up" → Redirects to React App
+   ```
+   - `login.html` redirects to: `http://localhost:3000/login`
+   - `signup.html` redirects to: `http://localhost:3000/register`
+
+2. **Download Page:**
+   - `download.html` provides links to the React app
+   - Future: Will include mobile app store links (iOS/Android)
+
+3. **Contact Form:**
+   - Users submit inquiries via website
+   - (Future) Backend endpoint processes contact submissions
+
+### Running Both Components
+
+**Marketing Website (Static HTML):**
+```bash
+# Option 1: Using Python's built-in server
+cd "OWESMART WEB"
+python -m http.server 8000
+
+# Option 2: Using VS Code Live Server extension
+# Right-click index.html → Open with Live Server
+
+# Access at: http://localhost:8000
+```
+
+**Main App (React + Node.js):**
+```bash
+# Backend
+node server/server.js              # http://localhost:5000
+
+# Frontend  
+cd client && npm start              # http://localhost:3000
+```
+
+### User Journey
+
+```
+1. User visits marketing website
+   → Learns about OweSmart features
+   → Views pricing and testimonials
+   → Decides to try the app
+
+2. Clicks "Get Started" or "Sign Up"
+   → Redirected to React app (localhost:3000/register)
+   → Creates account
+   → Logs in
+
+3. Inside the app
+   → Adds debts
+   → Makes payments via FPX
+   → Tracks financial progress
+```
+
+### Deployment Setup
+
+**Production URLs:**
+- Marketing Website: `https://owesmart.com` (or subdomain: `https://www.owesmart.com`)
+- React App: `https://app.owesmart.com`
+- Backend API: `https://api.owesmart.com`
+
+**Update Links for Production:**
+In website HTML files, change:
+```html
+<!-- Development -->
+<a href="http://localhost:3000/login">Login</a>
+
+<!-- Production -->
+<a href="https://app.owesmart.com/login">Login</a>
+```
+
+### Folder Structure
+```
+OWESMART-ENT-1/
+├── client/              # React App (Main Application)
+├── server/              # Backend API
+└── OWESMART WEB/        # Marketing Website
+    ├── index.html       # Landing page
+    ├── login.html       # Redirects to app login
+    ├── signup.html      # Redirects to app signup
+    ├── download.html    # App download links
+    └── README.md        # Website documentation
+```
+
+**See `OWESMART WEB/README.md` for detailed website documentation.**
+
+---
+
 ## 📚 Documentation
 
-- **`README.md`** - This file
+- **`README.md`** - This file (main app documentation)
+- **`OWESMART WEB/README.md`** - Marketing website documentation
 - **`DEBT_PAYMENT_GATEWAY_GUIDE.md`** - Complete FPX integration guide
 - **`FPX_INTEGRATION_GUIDE.md`** - Original subscription payment guide
 - **`POC_COMPLETE_SUMMARY.md`** - Project proof-of-concept summary
@@ -563,7 +668,7 @@ MIT License - See LICENSE file for details
 ## 👨‍💻 Author
 
 **BFM3130 - IT Project Team**
-- Academic Institution: [Your University]
+- Academic Institution: [Monash University Malaysia]
 - Course: BFM3130
 - Year: 2025
 

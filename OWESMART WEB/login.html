@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login | OweSmart</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    /* keep your same CSS */
+    body {
+      margin: 0;
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(135deg, #d6ebff 0%, #a8d4ff 100%);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+    .login-container {
+      background: #d5f5ff;
+      border-radius: 25px;
+      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
+      padding: 50px 60px;
+      text-align: center;
+      width: 400px;
+      animation: fadeIn 0.8s ease-in-out;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .login-logo { width: 170px; height: auto; margin-bottom: 15px; }
+    .login-container h2 { color: #1a3c66; font-size: 1.8em; margin-bottom: 25px; }
+    .login-container input {
+      width: 100%;
+      padding: 14px;
+      margin: 10px 0;
+      border: 1px solid #ccc;
+      border-radius: 10px;
+      font-size: 1em;
+      transition: all 0.3s ease;
+    }
+    .login-container input:focus {
+      border-color: #0077b6;
+      outline: none;
+      box-shadow: 0 0 6px rgba(0, 119, 182, 0.3);
+    }
+    .login-container button {
+      width: 100%;
+      background-color: #1a3c66;
+      color: white;
+      padding: 14px;
+      border: none;
+      border-radius: 10px;
+      font-size: 1em;
+      font-weight: 600;
+      cursor: pointer;
+      margin-top: 10px;
+      transition: background-color 0.3s ease;
+    }
+    .login-container button:hover { background-color: #0077b6; }
+    .login-container p { margin-top: 20px; font-size: 0.95em; color: #555; }
+    .login-container a { color: #0077b6; text-decoration: none; font-weight: 600; }
+    .login-container a:hover { text-decoration: underline; }
+  </style>
+</head>
+<body>
+  <div class="login-container">
+    <img src="images/owesmart-logo.png" alt="OweSmart Logo" class="login-logo">
+    <h2>Welcome Back to OweSmart</h2>
+
+    <!-- ✅ Added proper IDs -->
+    <form id="login-form">
+      <input type="email" id="email" placeholder="Email Address" required>
+      <input type="password" id="password" placeholder="Password" required>
+      <button type="submit">Login</button>
+    </form>
+
+    <p class="bottom-text">
+      Don’t have an account? <a href="signup.html">Sign up here</a>
+    </p>
+  </div>
+
+  <script>
+document.getElementById("login-form").addEventListener("submit", async (e) => {
+  e.preventDefault();
+
+  const email = document.getElementById("email").value;
+  const password = document.getElementById("password").value;
+
+  try {
+    const response = await fetch("http://localhost:5000/api/auth/login", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ email, password })
+    });
+
+    const data = await response.json();
+
+    if (response.ok) {
+      // Save token exactly where React expects it
+      localStorage.setItem("token", data.token);
+
+      // Redirect to React dashboard
+      window.location.href = "http://localhost:3000/dashboard";
+    } else {
+      alert(data.message || "Invalid email or password!");
+    }
+  } catch (error) {
+    console.error(error);
+    alert("Could not connect to server. Check backend and CORS settings.");
+  }
+});
+</script>

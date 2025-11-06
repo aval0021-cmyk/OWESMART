@@ -1,0 +1,54 @@
+=== OWESMART APP - DEPENDENCIES LIST ===
+
+BACKEND DEPENDENCIES (Node.js):
+- express: ^4.18.2 (Web application framework)
+- cors: ^2.8.5 (Cross-Origin Resource Sharing middleware)
+- sequelize: ^6.35.0 (ORM for database operations)
+- sqlite3: ^5.1.6 (SQLite database driver)
+- bcryptjs: ^2.4.3 (Password hashing)
+- jsonwebtoken: ^9.0.2 (JWT authentication)
+- dotenv: ^16.3.1 (Environment variable management)
+- nodemailer: ^6.9.7 (Email service)
+- node-cron: ^3.0.3 (Task scheduling)
+- axios: ^1.6.2 (HTTP client for external APIs)
+- crypto: built-in (Cryptographic functions for FPX)
+
+FRONTEND DEPENDENCIES (React):
+- react: ^18.2.0 (UI library)
+- react-dom: ^18.2.0 (React DOM rendering)
+- react-router-dom: ^6.20.0 (Client-side routing)
+- react-scripts: 5.0.1 (Build tooling)
+- axios: ^1.6.2 (HTTP client)
+- tailwindcss: ^3.3.6 (CSS framework)
+- postcss: ^8.4.32 (CSS processing)
+- autoprefixer: ^10.4.16 (CSS vendor prefixing)
+- firebase: ^10.7.1 (Google OAuth authentication)
+
+DEVELOPMENT TOOLS:
+- Node.js v14+ (JavaScript runtime)
+- npm v6+ (Package manager)
+- Git (Version control)
+- VS Code (IDE)
+
+DATABASE:
+- SQLite3 (Local file-based database)
+
+PAYMENT GATEWAY:
+- FPX (Financial Process Exchange) - Malaysia payment gateway
+- Demo mode implemented for testing
+
+EXTERNAL SERVICES:
+- Google OAuth 2.0 (Authentication)
+- Email service (via Nodemailer)
+- OpenAI API (AI Financial Coach - optional)
+
+INSTALLATION COMMANDS:
+Backend: cd server && npm install
+Frontend: cd client && npm install
+
+RUN COMMANDS:
+Backend: cd server && node server.js (runs on port 5000)
+Frontend: cd client && npm start (runs on port 3000)
+
+DATABASE SETUP:
+Run migration: node server/migrations/add-debt-payment-fields.js
